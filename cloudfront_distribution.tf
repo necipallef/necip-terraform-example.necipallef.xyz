@@ -86,10 +86,4 @@ resource "aws_cloudfront_distribution" "cloudfront_dist" {
       restriction_type = "none"
     }
   }
-
-  lifecycle {
-    ignore_changes = [
-      ordered_cache_behavior
-    ]
-  }
 }
