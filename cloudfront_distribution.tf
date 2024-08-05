@@ -1,7 +1,7 @@
 locals {
-  domain = "necip-terraform-example.necipallef.xyz"
-  origin_id = "necipallef-xyz-hello.s3.us-east-1.amazonaws.com"
-  s3_cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+  domain              = "necip-terraform-example.necipallef.xyz"
+  origin_id           = "necipallef-xyz-hello.s3.us-east-1.amazonaws.com"
+  s3_cache_policy_id  = "658327ea-f89d-4fab-a63d-7e88639e58f6"
   acm_certificate_arn = "arn:aws:acm:us-east-1:872196661402:certificate/1dfcb98f-ab6c-4191-a537-611bd2be0796"
 }
 
@@ -15,12 +15,12 @@ resource "aws_cloudfront_origin_access_control" "necipallef-xyz-s3-access-contro
 resource "aws_cloudfront_distribution" "cloudfront_dist" {
   comment = "created via Terraform"
 
-  aliases = [local.domain]
+  aliases             = [local.domain]
   default_root_object = "index.html"
 
   origin {
-    domain_name = local.origin_id
-    origin_id   = local.origin_id
+    domain_name              = local.origin_id
+    origin_id                = local.origin_id
     origin_access_control_id = aws_cloudfront_origin_access_control.necipallef-xyz-s3-access-control.id
   }
 
@@ -36,12 +36,12 @@ resource "aws_cloudfront_distribution" "cloudfront_dist" {
     target_origin_id       = local.origin_id
     viewer_protocol_policy = "redirect-to-https"
     compress               = true
-    cache_policy_id = local.s3_cache_policy_id
+    cache_policy_id        = local.s3_cache_policy_id
   }
 
   viewer_certificate {
     acm_certificate_arn = local.acm_certificate_arn
-    ssl_support_method = "sni-only"
+    ssl_support_method  = "sni-only"
   }
 
   restrictions {
